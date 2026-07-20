@@ -1,5 +1,6 @@
-﻿# Commanders of the Faithful - Scripted Triggers
+﻿﻿# Commanders of the Faithful - Scripted Triggers
 # These triggers check conditions for Asabiyyah eligibility and state
+# Updated for CK3 1.19 (Scribe)
 
 cft_is_asabiyyah_eligible = {
 	OR = {

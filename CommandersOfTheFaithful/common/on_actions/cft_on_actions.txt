@@ -1,9 +1,8 @@
-﻿# NOTE: relies on on_action merging across mods.
+﻿﻿# NOTE: relies on on_action merging across mods.
+# Updated for CK3 1.19 (Scribe)
 
 on_game_start = {
-	events = {
-		cft_on_game_start_init
-	}
+	events = { cft_on_game_start_init }
 }
 
 cft_on_game_start_init = {

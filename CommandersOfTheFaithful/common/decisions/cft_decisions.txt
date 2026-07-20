@@ -1,8 +1,9 @@
-﻿# Commanders of the Faithful - Decisions
+﻿﻿# Commanders of the Faithful - Decisions
 # These decisions allow players to examine their Asabiyyah cycle and debug options
+# Updated for CK3 1.19 (Scribe)
 
 cft_examine_realm_cohesion = {
-	picture = gfx/interface/illustrations/decisions/decision_generic_intrigue.dds
+	picture = "gfx/interface/illustrations/decisions/decision_generic_intrigue.dds"
 	ai_check_interval = 0
 	
 	is_shown = {
@@ -15,7 +16,7 @@ cft_examine_realm_cohesion = {
 }
 
 cft_debug_set_era_hardship = {
-	picture = gfx/interface/illustrations/decisions/decision_generic_war.dds
+	picture = "gfx/interface/illustrations/decisions/decision_generic_war.dds"
 	ai_check_interval = 0
 	
 	is_shown = {
@@ -29,7 +30,7 @@ cft_debug_set_era_hardship = {
 }
 
 cft_debug_set_era_golden = {
-	picture = gfx/interface/illustrations/decisions/decision_generic_diplomacy.dds
+	picture = "gfx/interface/illustrations/decisions/decision_generic_diplomacy.dds"
 	ai_check_interval = 0
 	
 	is_shown = {
@@ -43,7 +44,7 @@ cft_debug_set_era_golden = {
 }
 
 cft_debug_set_era_corruption = {
-	picture = gfx/interface/illustrations/decisions/decision_generic_stewardship.dds
+	picture = "gfx/interface/illustrations/decisions/decision_generic_stewardship.dds"
 	ai_check_interval = 0
 	
 	is_shown = {
@@ -57,7 +58,7 @@ cft_debug_set_era_corruption = {
 }
 
 cft_debug_set_era_dust = {
-	picture = gfx/interface/illustrations/decisions/decision_generic_war.dds
+	picture = "gfx/interface/illustrations/decisions/decision_generic_war.dds"
 	ai_check_interval = 0
 	
 	is_shown = {
@@ -71,7 +72,7 @@ cft_debug_set_era_dust = {
 }
 
 cft_debug_add_progress = {
-	picture = gfx/interface/illustrations/decisions/decision_generic_learning.dds
+	picture = "gfx/interface/illustrations/decisions/decision_generic_learning.dds"
 	ai_check_interval = 0
 	
 	is_shown = {
@@ -85,7 +86,7 @@ cft_debug_add_progress = {
 }
 
 cft_debug_force_tick = {
-	picture = gfx/interface/illustrations/decisions/decision_generic_learning.dds
+	picture = "gfx/interface/illustrations/decisions/decision_generic_learning.dds"
 	ai_check_interval = 0
 	
 	is_shown = {
@@ -99,7 +100,7 @@ cft_debug_force_tick = {
 }
 
 cft_debug_reinitialize = {
-	picture = gfx/interface/illustrations/decisions/decision_generic_learning.dds
+	picture = "gfx/interface/illustrations/decisions/decision_generic_learning.dds"
 	ai_check_interval = 0
 	
 	is_shown = {

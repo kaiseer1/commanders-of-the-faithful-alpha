@@ -1,4 +1,4 @@
-﻿# Commanders of the Faithful - Character Modifiers
+﻿﻿# Commanders of the Faithful - Character Modifiers
 # These modifiers represent the four eras of Ibn Khaldun's Asabiyyah cycle
 
 cft_era_hardship_modifier = {

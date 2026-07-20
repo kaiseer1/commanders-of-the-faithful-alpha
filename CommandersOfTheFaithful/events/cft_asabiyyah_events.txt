@@ -1,4 +1,4 @@
-﻿namespace = cft
+﻿﻿namespace = cft
 
 # cft.0001 - Yearly tick event for Asabiyyah progression
 cft.0001 = {

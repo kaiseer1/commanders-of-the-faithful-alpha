@@ -1,7 +1,12 @@
-﻿cft_player_notifications = {
+﻿﻿﻿# Commanders of the Faithful - Game Rules
+# Asabiyyah cycle configuration options
+# Updated for CK3 1.19 (Scribe)
+
+cft_player_notifications = {
 	name = cft_player_notifications_name
 	desc = cft_player_notifications_desc
 	default = cft_player_notifications_on
+	
 	cft_player_notifications_on = {}
 	cft_player_notifications_off = {}
 }
@@ -10,6 +15,7 @@ cft_debug = {
 	name = cft_debug_name
 	desc = cft_debug_desc
 	default = cft_debug_off
+	
 	cft_debug_off = {}
 	cft_debug_on = {}
 }
