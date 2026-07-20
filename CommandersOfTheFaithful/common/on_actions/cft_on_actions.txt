@@ -1,14 +1,27 @@
 ﻿# NOTE: relies on on_action merging across mods.
 
 on_game_start = {
-	effect = {
+	events = {
+		cft_on_game_start_init
+	}
+}
+
+cft_on_game_start_init = {
+	hidden = yes
+	immediate = {
 		every_living_character = {
-			limit = { is_ruler = yes cft_is_asabiyyah_eligible = yes }
+			limit = {
+				is_ruler = yes
+				cft_is_asabiyyah_eligible = yes
+			}
 			cft_initialize_asabiyyah = yes
-			trigger_event = { id = cft_yearly_tick days = { 1 10 } }
+			trigger_event = { id = cft.0001 days = { 1 10 } }
 		}
 		every_living_character = {
-			limit = { is_ruler = yes NOT = { cft_is_asabiyyah_eligible = yes } }
+			limit = {
+				is_ruler = yes
+				NOT = { cft_is_asabiyyah_eligible = yes }
+			}
 			remove_character_modifier = cft_era_hardship_modifier
 			remove_character_modifier = cft_era_golden_modifier
 			remove_character_modifier = cft_era_corruption_modifier
@@ -19,22 +32,5 @@ on_game_start = {
 }
 
 on_succession = {
-	events = { cft_on_succession_transfer }
-}
-
-cft_on_succession_transfer = {
-	hidden = yes
-	trigger = { exists = scope:predecessor is_ruler = yes }
-	immediate = {
-		cft_inherit_asabiyyah = { predecessor = scope:predecessor }
-		if = {
-			limit = { cft_is_asabiyyah_eligible = yes has_variable = cft_initialized }
-			trigger_event = { id = cft_yearly_tick days = { 365 425 } }
-		}
-		else_if = {
-			limit = { cft_is_asabiyyah_eligible = yes NOT = { has_variable = cft_initialized } }
-			cft_initialize_asabiyyah = yes
-			trigger_event = { id = cft_yearly_tick days = { 365 425 } }
-		}
-	}
+	events = { cft.0004 }
 }

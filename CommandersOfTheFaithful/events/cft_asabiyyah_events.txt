@@ -1,8 +1,12 @@
 ﻿namespace = cft
 
-cft_yearly_tick = {
+# cft.0001 - Yearly tick event for Asabiyyah progression
+cft.0001 = {
 	hidden = yes
-	trigger = { is_alive = yes is_ruler = yes }
+	trigger = {
+		is_alive = yes
+		is_ruler = yes
+	}
 	immediate = {
 		if = {
 			limit = { cft_is_asabiyyah_eligible = yes }
@@ -11,7 +15,7 @@ cft_yearly_tick = {
 				cft_initialize_asabiyyah = yes
 			}
 			cft_tick_asabiyyah = yes
-			trigger_event = { id = cft_yearly_tick days = { 365 425 } }
+			trigger_event = { id = cft.0001 days = { 365 425 } }
 		}
 		else = {
 			remove_character_modifier = cft_era_hardship_modifier
@@ -23,31 +27,111 @@ cft_yearly_tick = {
 	}
 }
 
-cft_era_change_player = {
+# cft.0002 - Player notification when era changes
+cft.0002 = {
 	title = cft_era_change_title
 	desc = {
-		triggered_desc = { trigger = { has_variable = { name = cft_era value = 1 } } desc = cft_era_change_desc_hardship }
-		triggered_desc = { trigger = { has_variable = { name = cft_era value = 2 } } desc = cft_era_change_desc_golden }
-		triggered_desc = { trigger = { has_variable = { name = cft_era value = 3 } } desc = cft_era_change_desc_corruption }
-		triggered_desc = { trigger = { has_variable = { name = cft_era value = 4 } } desc = cft_era_change_desc_dust }
+		triggered_desc = {
+			trigger = { var:cft_era = 1 }
+			desc = cft_era_change_desc_hardship
+		}
+		triggered_desc = {
+			trigger = { var:cft_era = 2 }
+			desc = cft_era_change_desc_golden
+		}
+		triggered_desc = {
+			trigger = { var:cft_era = 3 }
+			desc = cft_era_change_desc_corruption
+		}
+		triggered_desc = {
+			trigger = { var:cft_era = 4 }
+			desc = cft_era_change_desc_dust
+		}
 	}
+	theme = default
 	trigger = {
 		is_ai = no
 		has_game_rule = cft_player_notifications_on
 	}
-	option = { name = cft_era_change_option_ok }
+	option = {
+		name = cft_era_change_option_ok
+	}
 }
 
-cft_examine_asabiyyah = {
+# cft.0003 - Examine Asabiyyah decision event
+cft.0003 = {
 	title = cft_examine_title
 	desc = {
-		triggered_desc = { trigger = { var:cft_era = 1 } desc = cft_examine_desc_era1 }
-		triggered_desc = { trigger = { var:cft_era = 2 } desc = cft_examine_desc_era2 }
-		triggered_desc = { trigger = { var:cft_era = 3 } desc = cft_examine_desc_era3 }
-		triggered_desc = { trigger = { var:cft_era = 4 } desc = cft_examine_desc_era4 }
-		triggered_desc = { trigger = { var:cft_progress >= 67 } desc = cft_examine_band_high }
-		triggered_desc = { trigger = { var:cft_progress >= 34 var:cft_progress < 67 } desc = cft_examine_band_mid }
-		triggered_desc = { trigger = { var:cft_progress < 34 } desc = cft_examine_band_low }
+		triggered_desc = {
+			trigger = { var:cft_era = 1 }
+			desc = cft_examine_desc_era1
+		}
+		triggered_desc = {
+			trigger = { var:cft_era = 2 }
+			desc = cft_examine_desc_era2
+		}
+		triggered_desc = {
+			trigger = { var:cft_era = 3 }
+			desc = cft_examine_desc_era3
+		}
+		triggered_desc = {
+			trigger = { var:cft_era = 4 }
+			desc = cft_examine_desc_era4
+		}
+		triggered_desc = {
+			trigger = {
+				has_variable = cft_progress
+				var:cft_progress >= 67
+			}
+			desc = cft_examine_band_high
+		}
+		triggered_desc = {
+			trigger = {
+				has_variable = cft_progress
+				var:cft_progress >= 34
+				var:cft_progress < 67
+			}
+			desc = cft_examine_band_mid
+		}
+		triggered_desc = {
+			trigger = {
+				OR = {
+					NOT = { has_variable = cft_progress }
+					var:cft_progress < 34
+				}
+			}
+			desc = cft_examine_band_low
+		}
 	}
-	option = { name = cft_examine_ok }
+	theme = default
+	option = {
+		name = cft_examine_ok
+	}
+}
+
+# cft.0004 - Succession transfer event for Asabiyyah inheritance
+cft.0004 = {
+	hidden = yes
+	trigger = {
+		exists = scope:predecessor
+		is_ruler = yes
+	}
+	immediate = {
+		cft_inherit_asabiyyah = { predecessor = scope:predecessor }
+		if = {
+			limit = {
+				cft_is_asabiyyah_eligible = yes
+				has_variable = cft_initialized
+			}
+			trigger_event = { id = cft.0001 days = { 365 425 } }
+		}
+		else_if = {
+			limit = {
+				cft_is_asabiyyah_eligible = yes
+				NOT = { has_variable = cft_initialized }
+			}
+			cft_initialize_asabiyyah = yes
+			trigger_event = { id = cft.0001 days = { 365 425 } }
+		}
+	}
 }

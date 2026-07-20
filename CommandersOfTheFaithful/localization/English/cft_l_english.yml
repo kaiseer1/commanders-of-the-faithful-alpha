@@ -1,12 +1,62 @@
-l_english:
+﻿l_english:
+ # Decisions
  cft_examine_realm_cohesion:0 "Examine Realm Cohesion"
- cft_examine_realm_cohesion_desc:0 "Survey the ebb and flow of your dynasty's #V Asabiyyah#!..."
+ cft_examine_realm_cohesion_desc:0 "Survey the ebb and flow of your dynasty's #V Asabiyyah#! through the Khaldunian cycle."
  cft_examine_realm_cohesion_tooltip:0 "Opens the Khaldunian cycle view."
  cft_examine_realm_cohesion_confirm:0 "Examine"
+ 
+ # Debug decisions
+ cft_debug_set_era_hardship:0 "[cft_debug_force] Set Era: Hardship"
+ cft_debug_set_era_hardship_desc:0 "Force the Asabiyyah cycle to the Hardship era."
+ cft_debug_set_era_golden:0 "[cft_debug_force] Set Era: Golden Age"
+ cft_debug_set_era_golden_desc:0 "Force the Asabiyyah cycle to the Golden Age era."
+ cft_debug_set_era_corruption:0 "[cft_debug_force] Set Era: Corruption"
+ cft_debug_set_era_corruption_desc:0 "Force the Asabiyyah cycle to the Corruption era."
+ cft_debug_set_era_dust:0 "[cft_debug_force] Set Era: Dust"
+ cft_debug_set_era_dust_desc:0 "Force the Asabiyyah cycle to the Dust era."
+ cft_debug_add_progress:0 "[cft_debug_force] Add 25% Progress"
+ cft_debug_add_progress_desc:0 "Add 25% progress to the current era."
+ cft_debug_force_tick:0 "[cft_debug_force] Force Yearly Tick"
+ cft_debug_force_tick_desc:0 "Trigger the yearly Asabiyyah progression tick immediately."
+ cft_debug_reinitialize:0 "[cft_debug_force] Reinitialize Asabiyyah"
+ cft_debug_reinitialize_desc:0 "Reset and reinitialize the Asabiyyah system for this ruler."
+ cft_debug_force:0 "[Debug] "
+ 
+ # Events - Era Change Notification (cft.0002)
  cft_era_change_title:0 "The Cycle Turns"
- cft_era_change_desc_hardship:0 "..."
- cft_era_change_desc_golden:0 "..."
- cft_era_change_desc_corruption:0 "..."
- cft_era_change_desc_dust:0 "..."
+ cft_era_change_desc_hardship:0 "Your realm enters the #Y Hardship#! era. Through struggle and adversity, your dynasty's cohesion shall be forged in fire. The faithful band together against common foes."
+ cft_era_change_desc_golden:0 "Your realm enters the #G Golden Age#!. Prosperity and unity reign as your dynasty reaches the peak of its power. Yet beware—the seeds of decline are sown in times of plenty."
+ cft_era_change_desc_corruption:0 "Your realm enters the #R Corruption#! era. Luxury and complacency erode the bonds that once held your followers together. Factions stir in the shadows."
+ cft_era_change_desc_dust:0 "Your realm enters the #D Dust#! era. The old order crumbles as cohesion fades to nothing. Only through collapse can rebirth begin anew."
  cft_era_change_option_ok:0 "So it is written."
- # ...and the cft_examine_* band/era keys
+ 
+ # Events - Examine Asabiyyah (cft.0003)
+ cft_examine_title:0 "The State of Our Cohesion"
+ cft_examine_desc_era1:0 "#Y HARDSHIP#!\nWe stand in an age of struggle. Our people are bound together by necessity and shared hardship. Each challenge we face strengthens our bonds."
+ cft_examine_desc_era2:0 "#G GOLDEN AGE#!\nOur realm flourishes. Unity and prosperity mark this golden time, yet we must remain vigilant against the softening effects of comfort."
+ cft_examine_desc_era3:0 "#R CORRUPTION#!\nDecay sets in. The virtues that built our power fade as luxury takes hold. Faction and self-interest threaten to tear us apart."
+ cft_examine_desc_era4:0 "#D DUST#!\nThe old order crumbles. What once was strong has grown weak. Yet from dust, new beginnings may arise—for those who survive."
+ cft_examine_band_high:0 "\n\n#V Asabiyyah Level: HIGH#!\nOur cohesion nears its peak. A transition approaches—whether to greater glory or deeper decay depends on our current state."
+ cft_examine_band_mid:0 "\n\n#V Asabiyyah Level: MODERATE#!\nOur bonds hold steady, neither strengthening nor weakening significantly. The cycle continues its inexorable turn."
+ cft_examine_band_low:0 "\n\n#V Asabiyyah Level: LOW#!\nOur cohesion is weak. We are vulnerable to internal strife and external threats. Strong leadership is needed to restore unity."
+ cft_examine_ok:0 "I understand."
+ 
+ # Game Rules
+ cft_player_notifications_name:0 "CFT: Player Notifications"
+ cft_player_notifications_desc:0 "Enable or disable notifications when your Asabiyyah era changes."
+ cft_player_notifications_on:0 "Enabled"
+ cft_player_notifications_off:0 "Disabled"
+ cft_debug_name:0 "CFT: Debug Mode"
+ cft_debug_desc:0 "Enable debug decisions for testing the Asabiyyah cycle."
+ cft_debug_on:0 "Enabled"
+ cft_debug_off:0 "Disabled"
+ 
+ # Modifiers (auto-generated descriptions via modifier name + _desc convention)
+ cft_era_hardship_modifier:0 "Era of Hardship"
+ cft_era_hardship_modifier_desc:0 "The realm struggles against adversity. Vassals are discontent, factions grow bolder, and construction costs rise as resources are diverted to survival."
+ cft_era_golden_modifier:0 "Golden Age"
+ cft_era_golden_modifier_desc:0 "The realm prospers under unified leadership. Vassals are content, factions lack support, and development flourishes."
+ cft_era_corruption_modifier:0 "Age of Corruption"
+ cft_era_corruption_modifier_desc:0 "Luxury and complacency erode the bonds of loyalty. Tax revenue declines, factions gain strength, and control over territories weakens."
+ cft_era_dust_modifier:0 "Era of Dust"
+ cft_era_dust_modifier_desc:0 "The old order collapses. Tax collection fails, levies dwindle, and territorial control crumbles as cohesion vanishes entirely."

@@ -1,5 +1,8 @@
-﻿cft_apply_era = {
-	scope:character = {
+﻿# Commanders of the Faithful - Scripted Effects
+# These effects handle the Asabiyyah cycle mechanics
+
+cft_apply_era = {
+	root = {
 		remove_character_modifier = cft_era_hardship_modifier
 		remove_character_modifier = cft_era_golden_modifier
 		remove_character_modifier = cft_era_corruption_modifier
@@ -8,12 +11,22 @@
 		set_variable = { name = cft_era value = $era$ }
 		set_variable = { name = cft_progress value = 0 }
 
-		if = { limit = { var:cft_era = 1 } add_character_modifier = cft_era_hardship_modifier }
-		else_if = { limit = { var:cft_era = 2 } add_character_modifier = cft_era_golden_modifier }
-		else_if = { limit = { var:cft_era = 3 } add_character_modifier = cft_era_corruption_modifier }
-		else_if = { limit = { var:cft_era = 4 } add_character_modifier = cft_era_dust_modifier }
-
-		log = "CFT: era applied to [Root.GetName]."
+		if = {
+			limit = { var:cft_era = 1 }
+			add_character_modifier = cft_era_hardship_modifier
+		}
+		else_if = {
+			limit = { var:cft_era = 2 }
+			add_character_modifier = cft_era_golden_modifier
+		}
+		else_if = {
+			limit = { var:cft_era = 3 }
+			add_character_modifier = cft_era_corruption_modifier
+		}
+		else_if = {
+			limit = { var:cft_era = 4 }
+			add_character_modifier = cft_era_dust_modifier
+		}
 
 		# TODO verify current_year as a value; placed last so a runtime failure here still leaves the modifier applied.
 		set_variable = { name = cft_era_start_year value = current_year }
@@ -21,7 +34,7 @@
 }
 
 cft_initialize_asabiyyah = {
-	scope:character = {
+	root = {
 		if = {
 			limit = { has_variable = cft_initialized }
 		}
@@ -30,23 +43,44 @@ cft_initialize_asabiyyah = {
 			set_variable = { name = cft_version value = 1 }
 			set_variable = { name = cft_start_era value = 1 }
 
+			# Check for historical context to set starting era
+			# Abbasid Caliphate: title_k_abbasid or similar may exist depending on mod/patch
 			if = {
-				limit = { date <= 868.1.1 has_title = title_e_abbasid }
+				limit = {
+					current_date >= 868.1.1
+					current_date < 1066.1.1
+					has_title = e_abbasid
+				}
 				set_variable = { name = cft_start_era value = 3 }
 			}
 			if = {
-				limit = { date >= 1066.1.1 date <= 1067.1.1 }
-				if = { limit = { has_title = title_e_abbasid } set_variable = { name = cft_start_era value = 4 } }
-				else_if = { limit = { has_title = title_e_fatimid } set_variable = { name = cft_start_era value = 2 } }
+				limit = {
+					current_date >= 1066.1.1
+					current_date < 1067.1.1
+				}
+				if = {
+					limit = { has_title = e_abbasid }
+					set_variable = { name = cft_start_era value = 4 }
+				}
+				else_if = {
+					limit = { has_title = e_fatimid }
+					set_variable = { name = cft_start_era value = 2 }
+				}
 			}
 			if = {
-				limit = { date >= 1178.1.1 }
-				if = { limit = { has_title = title_e_abbasid } set_variable = { name = cft_start_era value = 4 } }
-				else_if = { limit = { has_title = title_e_fatimid } set_variable = { name = cft_start_era value = 1 } }
+				limit = { current_date >= 1178.1.1 }
+				if = {
+					limit = { has_title = e_abbasid }
+					set_variable = { name = cft_start_era value = 4 }
+				}
+				else_if = {
+					limit = { has_title = e_fatimid }
+					set_variable = { name = cft_start_era value = 1 }
+				}
 			}
 
 			cft_apply_era = { era = var:cft_start_era }
-			clear_variable = cft_start_era
+			remove_variable = cft_start_era
 		}
 	}
 }
@@ -55,7 +89,7 @@ cft_inherit_asabiyyah = {
 	scope:predecessor = {
 		if = {
 			limit = { has_variable = cft_era }
-			scope:character = {
+			root = {
 				set_variable = { name = cft_era value = scope:predecessor.var:cft_era }
 				set_variable = { name = cft_progress value = scope:predecessor.var:cft_progress }
 				set_variable = { name = cft_era_start_year value = scope:predecessor.var:cft_era_start_year }
@@ -68,7 +102,7 @@ cft_inherit_asabiyyah = {
 }
 
 cft_tick_asabiyyah = {
-	scope:character = {
+	root = {
 		set_variable = { name = cft_temp_years_check value = current_year }
 		if = {
 			limit = { has_variable = cft_era_start_year }
@@ -80,53 +114,134 @@ cft_tick_asabiyyah = {
 
 		if = {
 			limit = { var:cft_temp_years_check < 5 }
-			clear_variable = cft_temp_years_check
+			remove_variable = cft_temp_years_check
 		}
 		else = {
 			set_variable = { name = cft_delta value = 0 }
 
+			# ERA 1: HARDSHIP - Building cohesion through struggle
 			if = {
 				limit = { var:cft_era = 1 }
-				if = { limit = { is_at_war = no } change_variable = { name = cft_delta add = 20 } }
-				if = { limit = { NOT = { cft_has_dangerous_faction = { threshold = 50 } } } change_variable = { name = cft_delta add = 15 } }
-				if = { limit = { gold > 100 } change_variable = { name = cft_delta add = 10 } }
-				if = { limit = { prestige > 500 } change_variable = { name = cft_delta add = 10 } }
-				if = { limit = { capital_province = { control >= 70 } } change_variable = { name = cft_delta add = 10 } }
-				if = { limit = { OR = { stewardship >= 15 learning >= 15 } } change_variable = { name = cft_delta add = 10 } }
-				if = { limit = { cft_is_losing_war = yes } change_variable = { name = cft_delta subtract = 20 } }
-				if = { limit = { cft_has_dangerous_faction = { threshold = 75 } } change_variable = { name = cft_delta subtract = 20 } }
-				if = { limit = { gold < 0 } change_variable = { name = cft_delta subtract = 10 } }
-				if = { limit = { tyranny >= 20 } change_variable = { name = cft_delta subtract = 10 } }
-				if = { limit = { var:cft_delta < 2 } set_variable = { name = cft_delta value = 2 } }
-			}
-			else_if = {
-				limit = { var:cft_era = 2 }
-				if = { limit = { cft_is_over_limit = yes } change_variable = { name = cft_delta add = 15 } }
-				if = { limit = { tyranny >= 20 } change_variable = { name = cft_delta add = 15 } }
-				if = { limit = { cft_has_dangerous_faction = { threshold = 50 } } change_variable = { name = cft_delta add = 15 } }
-				if = { limit = { is_at_war = yes } change_variable = { name = cft_delta add = 10 } }
-				set_variable = { name = cft_temp_dur value = current_year }
-				change_variable = { name = cft_temp_dur subtract = var:cft_era_start_year }
-				if = { limit = { var:cft_temp_dur >= 10 } change_variable = { name = cft_delta add = 5 } }
-				clear_variable = cft_temp_dur
-				if = { limit = { stewardship >= 18 } change_variable = { name = cft_delta subtract = 15 } }
-				if = { limit = { learning >= 18 } change_variable = { name = cft_delta subtract = 10 } }
+				if = {
+					limit = { is_at_war = no }
+					change_variable = { name = cft_delta add = 20 }
+				}
+				if = {
+					limit = { NOT = { cft_has_dangerous_faction = { threshold = 50 } } }
+					change_variable = { name = cft_delta add = 15 }
+				}
+				if = {
+					limit = { gold > 100 }
+					change_variable = { name = cft_delta add = 10 }
+				}
+				if = {
+					limit = { prestige > 500 }
+					change_variable = { name = cft_delta add = 10 }
+				}
 				if = {
 					limit = {
-						NOT = { exists = strongest_faction }
+						exists = capital_province
+						capital_province = { county_control >= 70 }
+					}
+					change_variable = { name = cft_delta add = 10 }
+				}
+				if = {
+					limit = { OR = { stewardship >= 15 learning >= 15 } }
+					change_variable = { name = cft_delta add = 10 }
+				}
+				if = {
+					limit = { cft_is_losing_war = yes }
+					change_variable = { name = cft_delta subtract = 20 }
+				}
+				if = {
+					limit = { cft_has_dangerous_faction = { threshold = 75 } }
+					change_variable = { name = cft_delta subtract = 20 }
+				}
+				if = {
+					limit = { gold < 0 }
+					change_variable = { name = cft_delta subtract = 10 }
+				}
+				if = {
+					limit = { tyranny >= 20 }
+					change_variable = { name = cft_delta subtract = 10 }
+				}
+				if = {
+					limit = { var:cft_delta < 2 }
+					set_variable = { name = cft_delta value = 2 }
+				}
+			}
+			# ERA 2: GOLDEN AGE - Peak cohesion, but seeds of decline
+			else_if = {
+				limit = { var:cft_era = 2 }
+				if = {
+					limit = { cft_is_over_limit = yes }
+					change_variable = { name = cft_delta add = 15 }
+				}
+				if = {
+					limit = { tyranny >= 20 }
+					change_variable = { name = cft_delta add = 15 }
+				}
+				if = {
+					limit = { cft_has_dangerous_faction = { threshold = 50 } }
+					change_variable = { name = cft_delta add = 15 }
+				}
+				if = {
+					limit = { is_at_war = yes }
+					change_variable = { name = cft_delta add = 10 }
+				}
+				set_variable = { name = cft_temp_dur value = current_year }
+				change_variable = { name = cft_temp_dur subtract = var:cft_era_start_year }
+				if = {
+					limit = { var:cft_temp_dur >= 10 }
+					change_variable = { name = cft_delta add = 5 }
+				}
+				remove_variable = cft_temp_dur
+				if = {
+					limit = { stewardship >= 18 }
+					change_variable = { name = cft_delta subtract = 15 }
+				}
+				if = {
+					limit = { learning >= 18 }
+					change_variable = { name = cft_delta subtract = 10 }
+				}
+				if = {
+					limit = {
 						gold > 200
+						NOT = { any_joining_faction = { exists = this } }
 					}
 					change_variable = { name = cft_delta subtract = 10 }
 				}
-				if = { limit = { var:cft_delta < 2 } set_variable = { name = cft_delta value = 2 } }
+				if = {
+					limit = { var:cft_delta < 2 }
+					set_variable = { name = cft_delta value = 2 }
+				}
 			}
+			# ERA 3: CORRUPTION - Decline accelerates
 			else_if = {
 				limit = { var:cft_era = 3 }
-				if = { limit = { cft_is_losing_war = yes } change_variable = { name = cft_delta add = 20 } }
-				if = { limit = { cft_has_dangerous_faction = { threshold = 75 } } change_variable = { name = cft_delta add = 20 } }
-				if = { limit = { gold < 0 } change_variable = { name = cft_delta add = 15 } }
-				if = { limit = { capital_province = { control <= 40 } } change_variable = { name = cft_delta add = 15 } }
-				if = { limit = { tyranny >= 30 } change_variable = { name = cft_delta add = 10 } }
+				if = {
+					limit = { cft_is_losing_war = yes }
+					change_variable = { name = cft_delta add = 20 }
+				}
+				if = {
+					limit = { cft_has_dangerous_faction = { threshold = 75 } }
+					change_variable = { name = cft_delta add = 20 }
+				}
+				if = {
+					limit = { gold < 0 }
+					change_variable = { name = cft_delta add = 15 }
+				}
+				if = {
+					limit = {
+						exists = capital_province
+						capital_province = { county_control <= 40 }
+					}
+					change_variable = { name = cft_delta add = 15 }
+				}
+				if = {
+					limit = { tyranny >= 30 }
+					change_variable = { name = cft_delta add = 10 }
+				}
 				if = {
 					limit = {
 						has_trait = craven
@@ -134,42 +249,98 @@ cft_tick_asabiyyah = {
 					}
 					change_variable = { name = cft_delta add = 10 }
 				}
-				if = { limit = { OR = { martial >= 18 stewardship >= 18 } } change_variable = { name = cft_delta subtract = 15 } }
-				if = { limit = { NOT = { cft_has_dangerous_faction = { threshold = 50 } } } change_variable = { name = cft_delta subtract = 10 } }
-				if = { limit = { gold > 200 } change_variable = { name = cft_delta subtract = 10 } }
-				if = { limit = { var:cft_delta < 2 } set_variable = { name = cft_delta value = 2 } }
+				if = {
+					limit = { OR = { martial >= 18 stewardship >= 18 } }
+					change_variable = { name = cft_delta subtract = 15 }
+				}
+				if = {
+					limit = { NOT = { cft_has_dangerous_faction = { threshold = 50 } } }
+					change_variable = { name = cft_delta subtract = 10 }
+				}
+				if = {
+					limit = { gold > 200 }
+					change_variable = { name = cft_delta subtract = 10 }
+				}
+				if = {
+					limit = { var:cft_delta < 2 }
+					set_variable = { name = cft_delta value = 2 }
+				}
 			}
+			# ERA 4: DUST - Collapse and potential rebirth
 			else_if = {
 				limit = { var:cft_era = 4 }
-				if = { limit = { cft_is_losing_war = no } change_variable = { name = cft_delta add = 20 } }
-				if = { limit = { NOT = { cft_has_dangerous_faction = { threshold = 50 } } } change_variable = { name = cft_delta add = 15 } }
-				if = { limit = { gold > 0 } change_variable = { name = cft_delta add = 15 } }
-				if = { limit = { capital_province = { control >= 60 } } change_variable = { name = cft_delta add = 10 } }
-				if = { limit = { OR = { learning >= 15 stewardship >= 15 } } change_variable = { name = cft_delta add = 10 } }
+				if = {
+					limit = { NOT = { cft_is_losing_war = yes } }
+					change_variable = { name = cft_delta add = 20 }
+				}
+				if = {
+					limit = { NOT = { cft_has_dangerous_faction = { threshold = 50 } } }
+					change_variable = { name = cft_delta add = 15 }
+				}
+				if = {
+					limit = { gold > 0 }
+					change_variable = { name = cft_delta add = 15 }
+				}
+				if = {
+					limit = {
+						exists = capital_province
+						capital_province = { county_control >= 60 }
+					}
+					change_variable = { name = cft_delta add = 10 }
+				}
+				if = {
+					limit = { OR = { learning >= 15 stewardship >= 15 } }
+					change_variable = { name = cft_delta add = 10 }
+				}
 				set_variable = { name = cft_temp_dur value = current_year }
 				change_variable = { name = cft_temp_dur subtract = var:cft_era_start_year }
-				if = { limit = { var:cft_temp_dur >= 10 } change_variable = { name = cft_delta add = 10 } }
-				clear_variable = cft_temp_dur
-				if = { limit = { cft_is_losing_war = yes } change_variable = { name = cft_delta subtract = 20 } }
-				if = { limit = { cft_has_dangerous_faction = { threshold = 75 } } change_variable = { name = cft_delta subtract = 20 } }
-				if = { limit = { gold < 0 } change_variable = { name = cft_delta subtract = 10 } }
-				if = { limit = { var:cft_delta < 5 } set_variable = { name = cft_delta value = 5 } }
+				if = {
+					limit = { var:cft_temp_dur >= 10 }
+					change_variable = { name = cft_delta add = 10 }
+				}
+				remove_variable = cft_temp_dur
+				if = {
+					limit = { cft_is_losing_war = yes }
+					change_variable = { name = cft_delta subtract = 20 }
+				}
+				if = {
+					limit = { cft_has_dangerous_faction = { threshold = 75 } }
+					change_variable = { name = cft_delta subtract = 20 }
+				}
+				if = {
+					limit = { gold < 0 }
+					change_variable = { name = cft_delta subtract = 10 }
+				}
+				if = {
+					limit = { var:cft_delta < 5 }
+					set_variable = { name = cft_delta value = 5 }
+				}
 			}
 
 			change_variable = { name = cft_progress add = var:cft_delta }
-			if = { limit = { var:cft_progress < 0 } set_variable = { name = cft_progress value = 0 } }
-			if = { limit = { var:cft_progress > 100 } set_variable = { name = cft_progress value = 100 } }
+			if = {
+				limit = { var:cft_progress < 0 }
+				set_variable = { name = cft_progress value = 0 }
+			}
+			if = {
+				limit = { var:cft_progress > 100 }
+				set_variable = { name = cft_progress value = 100 }
+			}
 
+			# Era transition at 100% progress
 			if = {
 				limit = { var:cft_progress >= 100 }
 				set_variable = { name = cft_next_era value = var:cft_era }
 				change_variable = { name = cft_next_era add = 1 }
-				if = { limit = { var:cft_next_era > 4 } set_variable = { name = cft_next_era value = 1 } }
+				if = {
+					limit = { var:cft_next_era > 4 }
+					set_variable = { name = cft_next_era value = 1 }
+				}
 				cft_apply_era = { era = var:cft_next_era }
-				trigger_event = { id = cft_era_change_player days = { 1 3 } }
-				clear_variable = cft_next_era
+				trigger_event = { id = cft.0002 days = { 1 3 } }
+				remove_variable = cft_next_era
 			}
 		}
-		clear_variable = cft_temp_years_check
+		remove_variable = cft_temp_years_check
 	}
 }

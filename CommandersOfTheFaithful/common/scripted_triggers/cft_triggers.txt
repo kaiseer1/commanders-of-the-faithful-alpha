@@ -1,37 +1,34 @@
-﻿cft_is_asabiyyah_eligible = {
+﻿# Commanders of the Faithful - Scripted Triggers
+# These triggers check conditions for Asabiyyah eligibility and state
+
+cft_is_asabiyyah_eligible = {
 	OR = {
 		AND = {
-			is_independent = yes
-			# TODO verify clan-gov trigger for your version; swap to the next line if this fails:
-			government_has_flag = flag:clan_government
-			# government_has_flag = clan_government
-			# is_clan_government = yes
+			is_independent_ruler = yes
+			has_government = clan_government
 		}
-		# TODO verify title ids (likely k_abbasid / k_fatimid if these never match). A wrong id here only fails silently.
-		has_title = title_e_abbasid
-		has_title = title_e_fatimid
+		# Check for major caliphate titles that may use Asabiyyah regardless of government
+		has_title = e_abbasid
+		has_title = e_fatimid
 	}
 }
 
 cft_is_losing_war = {
 	any_character_war = {
-		# TODO verify sign: if "losing" behaves like "winning", flip > to < (war_score_against < -50).
-		war_score_against > 50
+		is_attacker = no
+		war_score < -50
 	}
 }
 
 cft_has_dangerous_faction = {
-	exists = strongest_faction
-	strongest_faction = {
-		# TODO verify faction-power trigger token: faction_power vs power vs faction_strength.
+	any_joining_faction = {
 		faction_power >= $threshold$
 	}
 }
 
 cft_is_over_limit = {
 	OR = {
-		# TODO verify these two trigger names for your version.
-		is_over_domain_limit = yes
-		is_over_vassal_limit = yes
+		domain_limit_exceeded = yes
+		vassal_limit_exceeded = yes
 	}
 }
