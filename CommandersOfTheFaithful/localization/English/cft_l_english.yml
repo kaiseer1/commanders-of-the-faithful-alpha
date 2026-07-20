@@ -1,0 +1,12 @@
+l_english:
+ cft_examine_realm_cohesion:0 "Examine Realm Cohesion"
+ cft_examine_realm_cohesion_desc:0 "Survey the ebb and flow of your dynasty's #V Asabiyyah#!..."
+ cft_examine_realm_cohesion_tooltip:0 "Opens the Khaldunian cycle view."
+ cft_examine_realm_cohesion_confirm:0 "Examine"
+ cft_era_change_title:0 "The Cycle Turns"
+ cft_era_change_desc_hardship:0 "..."
+ cft_era_change_desc_golden:0 "..."
+ cft_era_change_desc_corruption:0 "..."
+ cft_era_change_desc_dust:0 "..."
+ cft_era_change_option_ok:0 "So it is written."
+ # ...and the cft_examine_* band/era keys

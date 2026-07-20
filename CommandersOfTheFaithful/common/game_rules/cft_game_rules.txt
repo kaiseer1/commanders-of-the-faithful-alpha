@@ -1,0 +1,15 @@
+﻿cft_player_notifications = {
+	default = cft_player_notifications_on
+	cft_player_notifications_on = { is_default = yes }
+	cft_player_notifications_off = { }
+	name = cft_player_notifications_name
+	desc = cft_player_notifications_desc
+}
+
+cft_debug = {
+	default = cft_debug_off
+	cft_debug_off = { is_default = yes }
+	cft_debug_on = { }
+	name = cft_debug_name
+	desc = cft_debug_desc
+}
