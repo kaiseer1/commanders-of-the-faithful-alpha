@@ -1,38 +1,37 @@
-﻿cft_era_hardship_modifier = {
+﻿﻿# Commanders of the Faithful - Character Modifiers
+# These modifiers represent the four eras of Ibn Khaldun's Asabiyyah cycle
+
+cft_era_hardship_modifier = {
 	icon = negative
 	vassal_opinion = -5
-	popular_opinion = -5
-	faction_power_mult = 0.10
+	general_opinion = -5
+	faction_discovery_chance_mult = 0.10
 	levy_reinforcement_rate = -0.10
-	build_gold_cost = 0.10 # TODO verify: build_gold_cost vs build_cost
-	desc = cft_era_hardship_desc
+	build_cost = 0.10
 }
 
 cft_era_golden_modifier = {
 	icon = positive
 	vassal_opinion = 5
-	faction_power_mult = -0.15
+	faction_discovery_chance_mult = -0.15
 	levy_reinforcement_rate = 0.10
-	build_gold_cost = -0.10 # TODO verify
-	development_growth_factor = 0.20 # TODO verify: may need county_modifier scope
-	desc = cft_era_golden_desc
+	build_cost = -0.10
+	county_development_growth_factor = 0.20
 }
 
 cft_era_corruption_modifier = {
 	icon = negative
 	vassal_opinion = -5
 	tax_mult = -0.10
-	faction_power_mult = 0.15
-	build_gold_cost = 0.10 # TODO verify
-	monthly_county_control_change_factor = -0.10 # TODO verify
-	desc = cft_era_corruption_desc
+	faction_discovery_chance_mult = 0.15
+	build_cost = 0.10
+	monthly_county_control_change_add = -0.10
 }
 
 cft_era_dust_modifier = {
 	icon = negative
 	tax_mult = -0.20
-	faction_power_mult = 0.25
-	levy_size = -0.20 # TODO verify: levy_size vs levy_size_percentage
-	monthly_county_control_change_factor = -0.20 # TODO verify
-	desc = cft_era_dust_desc
+	faction_discovery_chance_mult = 0.25
+	levy_size_mult = -0.20
+	monthly_county_control_change_add = -0.20
 }

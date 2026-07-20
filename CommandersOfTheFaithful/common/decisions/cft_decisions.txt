@@ -1,66 +1,115 @@
-﻿cft_examine_realm_cohesion = {
-	icon = decision_generic_intrigue
-	is_shown = { cft_is_asabiyyah_eligible = yes }
-	effect = { trigger_event = { id = cft_examine_asabiyyah } }
-	name = cft_examine_realm_cohesion_name
-	desc = cft_examine_realm_cohesion_desc
+﻿﻿# Commanders of the Faithful - Decisions
+# These decisions allow players to examine their Asabiyyah cycle and debug options
+# Updated for CK3 1.19 (Scribe)
+
+cft_examine_realm_cohesion = {
+	picture = "gfx/interface/illustrations/decisions/decision_generic_intrigue.dds"
+	ai_check_interval = 0
+	
+	is_shown = {
+		cft_is_asabiyyah_eligible = yes
+	}
+	
+	effect = {
+		trigger_event = cft.0003
+	}
 }
 
 cft_debug_set_era_hardship = {
-	icon = decision_generic_war
-	is_shown = { has_game_rule = cft_debug_on cft_is_asabiyyah_eligible = yes }
-	effect = { cft_apply_era = { era = 1 } }
-	name = cft_debug_set_era_hardship_name
-	desc = cft_debug_set_era_hardship_desc
+	picture = "gfx/interface/illustrations/decisions/decision_generic_war.dds"
+	ai_check_interval = 0
+	
+	is_shown = {
+		has_game_rule = cft_debug_on
+		cft_is_asabiyyah_eligible = yes
+	}
+	
+	effect = {
+		cft_apply_era = { era = 1 }
+	}
 }
 
 cft_debug_set_era_golden = {
-	icon = decision_generic_diplomacy
-	is_shown = { has_game_rule = cft_debug_on cft_is_asabiyyah_eligible = yes }
-	effect = { cft_apply_era = { era = 2 } }
-	name = cft_debug_set_era_golden_name
-	desc = cft_debug_set_era_golden_desc
+	picture = "gfx/interface/illustrations/decisions/decision_generic_diplomacy.dds"
+	ai_check_interval = 0
+	
+	is_shown = {
+		has_game_rule = cft_debug_on
+		cft_is_asabiyyah_eligible = yes
+	}
+	
+	effect = {
+		cft_apply_era = { era = 2 }
+	}
 }
 
 cft_debug_set_era_corruption = {
-	icon = decision_generic_stewardship
-	is_shown = { has_game_rule = cft_debug_on cft_is_asabiyyah_eligible = yes }
-	effect = { cft_apply_era = { era = 3 } }
-	name = cft_debug_set_era_corruption_name
-	desc = cft_debug_set_era_corruption_desc
+	picture = "gfx/interface/illustrations/decisions/decision_generic_stewardship.dds"
+	ai_check_interval = 0
+	
+	is_shown = {
+		has_game_rule = cft_debug_on
+		cft_is_asabiyyah_eligible = yes
+	}
+	
+	effect = {
+		cft_apply_era = { era = 3 }
+	}
 }
 
 cft_debug_set_era_dust = {
-	icon = decision_generic_war
-	is_shown = { has_game_rule = cft_debug_on cft_is_asabiyyah_eligible = yes }
-	effect = { cft_apply_era = { era = 4 } }
-	name = cft_debug_set_era_dust_name
-	desc = cft_debug_set_era_dust_desc
+	picture = "gfx/interface/illustrations/decisions/decision_generic_war.dds"
+	ai_check_interval = 0
+	
+	is_shown = {
+		has_game_rule = cft_debug_on
+		cft_is_asabiyyah_eligible = yes
+	}
+	
+	effect = {
+		cft_apply_era = { era = 4 }
+	}
 }
 
 cft_debug_add_progress = {
-	icon = decision_generic_learning
-	is_shown = { has_game_rule = cft_debug_on cft_is_asabiyyah_eligible = yes }
-	effect = { change_variable = { name = cft_progress add = 25 } }
-	name = cft_debug_add_progress_name
-	desc = cft_debug_add_progress_desc
+	picture = "gfx/interface/illustrations/decisions/decision_generic_learning.dds"
+	ai_check_interval = 0
+	
+	is_shown = {
+		has_game_rule = cft_debug_on
+		cft_is_asabiyyah_eligible = yes
+	}
+	
+	effect = {
+		change_variable = { name = cft_progress add = 25 }
+	}
 }
 
 cft_debug_force_tick = {
-	icon = decision_generic_learning
-	is_shown = { has_game_rule = cft_debug_on cft_is_asabiyyah_eligible = yes }
-	effect = { trigger_event = { id = cft_yearly_tick days = 1 } }
-	name = cft_debug_force_tick_name
-	desc = cft_debug_force_tick_desc
+	picture = "gfx/interface/illustrations/decisions/decision_generic_learning.dds"
+	ai_check_interval = 0
+	
+	is_shown = {
+		has_game_rule = cft_debug_on
+		cft_is_asabiyyah_eligible = yes
+	}
+	
+	effect = {
+		trigger_event = { id = cft.0001 days = 1 }
+	}
 }
 
 cft_debug_reinitialize = {
-	icon = decision_generic_learning
-	is_shown = { has_game_rule = cft_debug_on cft_is_asabiyyah_eligible = yes }
+	picture = "gfx/interface/illustrations/decisions/decision_generic_learning.dds"
+	ai_check_interval = 0
+	
+	is_shown = {
+		has_game_rule = cft_debug_on
+		cft_is_asabiyyah_eligible = yes
+	}
+	
 	effect = {
 		set_variable = { name = cft_initialized value = no }
 		cft_initialize_asabiyyah = yes
 	}
-	name = cft_debug_reinitialize_name
-	desc = cft_debug_reinitialize_desc
 }
